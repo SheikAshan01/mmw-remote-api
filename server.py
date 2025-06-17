@@ -90,5 +90,5 @@ def heartbeat():
         online_users[sender_id]["last_seen"] = datetime.now()
     return {"status": "heartbeat_received"}
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+# if __name__ == "__main__":
+#     app.run(host="0.0.0.0", port=5000)
