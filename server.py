@@ -3,9 +3,13 @@ from datetime import datetime, timedelta
 
 app = Flask(__name__)
 
-# In-memory storage for simplicity
+# In-memory storage
 online_users = {}  # key = sender_id, value = {ip, name, last_seen, status, requested_by}
 REQUEST_TIMEOUT = timedelta(seconds=30)
+
+@app.route("/")
+def home():
+    return "MMW Remote API is running"
 
 @app.route("/register", methods=["POST"])
 def register():
@@ -89,6 +93,3 @@ def heartbeat():
     if sender_id in online_users:
         online_users[sender_id]["last_seen"] = datetime.now()
     return {"status": "heartbeat_received"}
-
-# if __name__ == "__main__":
-#     app.run(host="0.0.0.0", port=5000)
