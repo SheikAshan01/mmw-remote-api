@@ -46,16 +46,18 @@ def list_users():
 @app.route("/request", methods=["POST"])
 def request_connection():
     data = request.json
-    sender_id = data.get("id")
-    receiver_id = data.get("receiver")
+    receiver_id = data.get("receiver")  # 👈 person who will get the request
+    requester_id = data.get("id")       # 👈 the one who is sending the request
 
-    sender = online_users.get(sender_id)
-    if not sender:
-        return {"error": "Sender not found"}, 404
+    receiver = online_users.get(receiver_id)
+    if not receiver:
+        return {"error": "Receiver not found"}, 404
 
-    sender["status"] = "requested"
-    sender["requested_by"] = receiver_id
+    receiver["status"] = "requested"
+    receiver["requested_by"] = requester_id
+    receiver["request_time"] = datetime.now()  # optional timeout logic
     return {"status": "request_sent"}
+
 
 @app.route("/status/<sender_id>", methods=["GET"])
 def check_status(sender_id):
