@@ -6,7 +6,6 @@ services:
     buildCommand: |
       apt-get update && apt-get install -y \
         ffmpeg \
-        pkg-config \
         libavformat-dev \
         libavcodec-dev \
         libavdevice-dev \
@@ -14,10 +13,7 @@ services:
         libavfilter-dev \
         libswscale-dev \
         libswresample-dev \
-        libopus-dev \
-        libvpx-dev \
-        libx264-dev \
-        libx265-dev \
+        pkg-config \
         python3-dev \
         gcc \
         g++
