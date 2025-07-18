@@ -1,5 +1,25 @@
 services:
   - type: web
     name: mmw-remote-api
-    env: docker
+    env: python
     plan: free
+    buildCommand: |
+      apt-get update && apt-get install -y \
+        ffmpeg \
+        pkg-config \
+        libavformat-dev \
+        libavcodec-dev \
+        libavdevice-dev \
+        libavutil-dev \
+        libavfilter-dev \
+        libswscale-dev \
+        libswresample-dev \
+        libopus-dev \
+        libvpx-dev \
+        libx264-dev \
+        libx265-dev \
+        python3-dev \
+        gcc \
+        g++
+      pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
